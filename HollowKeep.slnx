@@ -3,5 +3,5 @@
     <Platform Name="x64" />
     <Platform Name="x86" />
   </Configurations>
-  <Project Path="HollowKeep/HollowKeep.vcxproj" />
+  <Project Path="HollowKeep/HollowKeep.vcxproj" Id="298525ad-23ca-42df-8fe0-abf742b95285" />
 </Solution>
