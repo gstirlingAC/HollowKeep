@@ -1,90 +1,84 @@
 #include "Character.h"
+#include "Battle.h"
 #include <iostream>
 #include <cassert>
 
 int main()
 {
-	Character player("Aldric", 3, 2, 1);
-	Character enemy("Boab", 2, 2, 3);
+	// Test 1: Alternating turns and their returned damage
+	{
+		Character player("Aldric", 3, 2, 1);
+		Character enemy("Boab", 2, 2, 3);
 
-	enemy.setMaximumHealth(20);
-	assert(enemy.getHealth() == 20);
+		Battle battle(player, enemy);
+
+		player.setMaximumHealth(10);
+		enemy.setMaximumHealth(10);
+
+		int damage = battle.performTurn();
+		damage = battle.performTurn();
+
+		assert(damage == 2);
+		assert(player.getHealth() == 8);
+		assert(enemy.getHealth() == 8);
+	}
+
+	// Test 2: Player Dead
+	{
+		Character player("Aldric", 3, 2, 1);
+		Character enemy("Boab", 2, 2, 3);
+
+		Battle battle(player, enemy);
+
+		player.setMaximumHealth(0);
+		enemy.setMaximumHealth(10);
+
+		player.displayStats();
+		enemy.displayStats();
+
+		int damage = battle.performTurn();
+
+		std::cout << "Damage: " << damage << "\n";
+
+		assert(damage == 0);
+		assert(battle.getBattleOutcome() == BattleOutcome::SECONDCHARACTERWON);
+	}
+
+	// Test 3: Enemy Dead
+	{
+		Character player("Aldric", 3, 2, 1);
+		Character enemy("Boab", 2, 2, 3);
+
+		Battle battle(player, enemy);
+
+		player.setMaximumHealth(10);
+		enemy.setMaximumHealth(0);
+
+		int damage = battle.performTurn();
+
+		assert(damage == 0);
+		assert(battle.getBattleOutcome() == BattleOutcome::FIRSTCHARACTERWON);
+	}
+
+	// Test 4: Draw
+	{
+		Character player("Aldric", 3, 2, 1);
+		Character enemy("Boab", 2, 2, 3);
+
+		Battle battle(player, enemy);
+
+		player.setMaximumHealth(0);
+		enemy.setMaximumHealth(0);
+
+		int damage = battle.performTurn();
+
+		assert(damage == 0);
+		assert(battle.getBattleOutcome() == BattleOutcome::DRAW);
+	}
+
+	// Test 5: Draw
 	
-	player.displayStats();
-	enemy.displayStats();
-	assert(player.getAttackPower() == 5);
-	assert(player.getDefenceValue() == 3);
-
-	player.setAttackPower(-5);
-	assert(player.getAttackPower() == 5);
-
-	player.setDefenceValue(-5);
-	assert(player.getDefenceValue() == 3);
-
-	enemy.setAttackPower(6);
-	enemy.setDefenceValue(7);
-	assert(enemy.getAttackPower() == 6);
-	assert(enemy.getDefenceValue() == 7);
-
-	assert(player.attack(enemy) == 0);
-	assert(enemy.getHealth() == 20);
-
-	assert(enemy.attack(player) == 3);
-	assert(player.getHealth() == 9);
-
-	player.setAttackPower(10);
-	assert(player.getAttackPower() == 10);
-
-	player.setDefenceValue(10);
-	assert(player.getDefenceValue() == 10);
-
-	enemy.setAttackPower(10);
-	assert(enemy.getAttackPower() == 10);
-
-	enemy.setDefenceValue(10);
-	assert(enemy.getDefenceValue() == 10);
-
-	assert(player.attack(enemy) == 0);
-	assert(enemy.attack(player) == 0);
-
-	player.setAttackPower(30);
-	assert(player.getAttackPower() == 30);
-
-	player.healDamage(5);
-	assert(player.getHealth() == 12);
-
-	player.healDamage(-5);
-	assert(player.getHealth() == 12);
-
-	player.healDamage(50);
-	assert(player.getHealth() == 12);
-
-	/*std::cout << "Player attack: " << player.getAttackPower() << "\n";
-	std::cout << "Enemy attack: " << enemy.getAttackPower() << "\n";
-	std::cout << "Player defence: " << player.getDefenceValue() << "\n";
-	std::cout << "Enemy defence: " << enemy.getDefenceValue() << "\n";*/
-	assert(player.attack(enemy) == 20);
-	assert(enemy.attack(player) == 0);
-
-	/*std::cout << "Player attack: " << player.getAttackPower() << "\n";
-	std::cout << "Enemy attack: " << enemy.getAttackPower() << "\n";
-	std::cout << "Player defence: " << player.getDefenceValue() << "\n";
-	std::cout << "Enemy defence: " << enemy.getDefenceValue() << "\n";*/
-	assert(player.attack(enemy) == 0);
-
-	assert(player.attack(player) == 0);
-	assert(enemy.isAlive() == false);
-
-	enemy.healDamage(10);
-	assert(enemy.getHealth() == 0);
-
-	enemy.setMaximumHealth(40);
-	assert(enemy.getHealth() == 40);
-
-	enemy.setDefenceValue(40);
-	assert(player.attack(enemy) == 0);
 
 
-	
 	return 0;
 }

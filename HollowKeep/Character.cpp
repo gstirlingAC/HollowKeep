@@ -2,8 +2,7 @@
 #include <iostream>
 #include <algorithm>
 
-Character::Character(std::string characterName, int characterMight, int characterFinesse, int characterWits)
-	:
+Character::Character(std::string characterName, int characterMight, int characterFinesse, int characterWits) :
 	m_name(characterName),
 	m_currentHealth(kStartingHealth),
 	m_maximumHealth(kStartingHealth),
@@ -12,7 +11,8 @@ Character::Character(std::string characterName, int characterMight, int characte
 	m_wits(characterWits),
 	m_attackPower(5),
 	m_defence(3)
-{}
+{
+}
 
 std::string Character::getName() const
 {
