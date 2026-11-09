@@ -76,9 +76,6 @@ int main()
 		assert(battle.getBattleOutcome() == BattleOutcome::DRAW);
 	}
 
-	// Test 5: Draw
-	
-
 
 	return 0;
 }

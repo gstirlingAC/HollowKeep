@@ -13,6 +13,8 @@ public:
 	int getHealth() const;
 	int getAttackPower() const;
 	int getDefenceValue() const;
+	int getMaximumHealth() const;
+
 	int attack(Character& target);
 
 	void setMaximumHealth(int value);

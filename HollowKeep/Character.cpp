@@ -34,6 +34,11 @@ int Character::getDefenceValue() const
 	return m_defence;
 }
 
+int Character::getMaximumHealth() const
+{
+	return m_maximumHealth;
+}
+
 int Character::attack(Character& target)
 {
 	if (this == &target)
