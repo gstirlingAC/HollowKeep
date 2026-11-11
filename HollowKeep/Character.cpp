@@ -1,4 +1,5 @@
 #include "Character.h"
+#include "Inventory.h"
 #include <iostream>
 #include <algorithm>
 
@@ -109,11 +110,11 @@ void Character::healDamage(int healAmount)
 		}
 		else
 		{
-			int finalHealth = std::min(m_currentHealth + healAmount, m_maximumHealth);
-			int actualHealing = finalHealth - m_currentHealth;
+			int healingNeeded = m_maximumHealth - m_currentHealth;
+			int actualHealing = std::min(healAmount, healingNeeded);
 			int wastedHealing = healAmount - actualHealing;
 
-			m_currentHealth = finalHealth;
+			m_currentHealth += actualHealing;
 
 			std::cout << m_name << " has healed with " << actualHealing << " points.\n";
 			std::cout << m_name << " now has " << m_currentHealth << " health.\n\n";
@@ -140,11 +141,11 @@ void Character::takeDamage(int damageAmount)
 {
 	if (damageAmount < 0)
 	{
-		std::cout << "Error: Negative numbers not allowed.\n";
+		std::cout << "Error: Negative numbers not allowed.\n\n";
 	}
 	else
 	{
-		std::cout << m_name << " takes " << damageAmount << " damage.\n";
+		std::cout << m_name << " takes " << damageAmount << " damage.\n\n";
 		m_currentHealth -= damageAmount;
 	}
 	
@@ -152,7 +153,7 @@ void Character::takeDamage(int damageAmount)
 	if (!isAlive())
 	{
 		m_currentHealth = 0;
-		std::cout << m_name << " has taken too much damage and has died.\n";
+		std::cout << m_name << " has taken too much damage and has died.\n\n";
 	}
 }
 

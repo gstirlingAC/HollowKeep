@@ -1,4 +1,5 @@
 #include "Inventory.h"
+#include <iostream>
 
 Inventory::Inventory(std::size_t capacity) : m_capacity(capacity) {}
 
@@ -37,8 +38,11 @@ bool Inventory::usePotion(std::size_t index, Character& target)
 	}
 
 	int healing = m_potions[index].healingAmount;
+	target.healDamage(healing);
 
-	return healing;
+	m_potions.erase(m_potions.begin() + index);
+
+	return true;
 }
 
 std::size_t Inventory::getPotionCount() const

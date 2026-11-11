@@ -1,7 +1,6 @@
 #ifndef CHARACTER_H
 #define CHARACTER_H
-
-#include<string>
+#include <string>
 
 class Character 
 {
@@ -24,6 +23,7 @@ public:
 	void healDamage(int healAmount);
 	void displayStats() const;
 	void takeDamage(int damageAmount);
+
 	bool isAlive() const;
 
 private:
